@@ -1,4 +1,4 @@
-%global pypi_version 1.6
+%global pypi_version 23.6
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
@@ -6,9 +6,8 @@ Release:        2%{?dist}
 Summary:        Tools for virtual machine firmware volumes
 
 License:        GPLv2
-URL:            https://gitlab.com/kraxel/virt-firmware
-Source0:        https://gitlab.com/kraxel/virt-firmware/-/archive/v%{pypi_version}/virt-firmware-v%{pypi_version}.tar.gz
-Patch1:         0001-setup.cfg-drop-peutils.patch
+URL:            https://pypi.org/project/virt-firmware/
+Source0:        virt-firmware-%{pypi_version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -28,6 +27,7 @@ Summary:        %{summary}
 Provides:       virt-firmware
 Requires:       python3dist(cryptography)
 Requires:       python3dist(setuptools)
+Requires:       python3dist(pefile)
 %description -n python3-virt-firmware
 Tools for ovmf / armvirt firmware volumes This is a small collection of tools
 for edk2 firmware images. They support decoding and printing the content of
@@ -43,7 +43,7 @@ Requires:       edk2-ovmf
 test cases
 
 %prep
-%autosetup -n virt-firmware-v%{pypi_version}
+%autosetup -n virt-firmware-%{pypi_version}
 
 %build
 %py3_build
@@ -64,15 +64,33 @@ cp -ar tests %{buildroot}%{_datadir}/%{name}
 %{_bindir}/virt-fw-dump
 %{_bindir}/virt-fw-vars
 %{_bindir}/virt-fw-sigdb
+%{_bindir}/kernel-bootcfg
+%{_bindir}/uefi-boot-menu
 %{_bindir}/migrate-vars
+%{_bindir}/pe-dumpinfo
+%{_bindir}/pe-listsigs
+%{_bindir}/pe-addsigs
 %{_mandir}/man1/virt-*.1*
 %{python3_sitelib}/virt/firmware
+%{python3_sitelib}/virt/peutils
 %{python3_sitelib}/virt_firmware-%{pypi_version}-py%{python3_version}.egg-info
 
 %files -n python3-virt-firmware-tests
 %{_datadir}/%{name}/tests
 
 %changelog
+* Tue Jun 27 2023 Gerd Hoffmann <kraxel@redhat.com> - 23.6-2
+- drop -peutils subpackage
+
+* Thu May 04 2023 Gerd Hoffmann <kraxel@redhat.com> - 23.5-1
+- update to version 23.5
+- resolves: rhbz#2193089
+
+* Fri Apr 14 2023 Gerd Hoffmann <kraxel@redhat.com> - 23.4-1
+- update to version 23.4
+- resolves: rhbz#2186770
+- resolves: rhbz#2143566
+
 * Tue Nov 15 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.6-2
 - add tests.yml
 
