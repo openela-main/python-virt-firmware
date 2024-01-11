@@ -1,0 +1,37 @@
+From b6db3b1366fe61a7cbe176c92420076bc6aa5936 Mon Sep 17 00:00:00 2001
+From: Gerd Hoffmann <kraxel@redhat.com>
+Date: Mon, 14 Nov 2022 15:58:07 +0100
+Subject: [PATCH] setup.cfg: drop peutils
+
+---
+ setup.cfg | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/setup.cfg b/setup.cfg
+index 5f57feac114d..307d6e279d4c 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -17,10 +17,8 @@ packages =
+     virt/firmware
+     virt/firmware/efi
+     virt/firmware/varstore
+-    virt/peutils
+ install_requires =
+     cryptography
+-    pefile
+ 
+ [options.entry_points]
+ console_scripts =
+@@ -29,9 +27,6 @@ console_scripts =
+     virt-fw-dump = virt.firmware.dump:main
+     virt-fw-sigdb = virt.firmware.sigdb:main
+     migrate-vars = virt.firmware.migrate:main
+-    pe-dumpinfo = virt.peutils.peutils:pe_dumpinfo
+-    pe-listsigs = virt.peutils.peutils:pe_listsigs
+-    pe-addsigs = virt.peutils.peutils:pe_addsigs
+ 
+ [options.package_data]
+ virt/firmware = certs/*.pem, aws/dict.v0
+-- 
+2.38.1
+
