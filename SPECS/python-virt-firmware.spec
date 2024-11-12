@@ -1,4 +1,4 @@
-%global pypi_version 24.2
+%global pypi_version 24.7
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
@@ -7,7 +7,7 @@ Summary:        Tools for virtual machine firmware volumes
 
 License:        GPLv2
 URL:            https://pypi.org/project/virt-firmware/
-Source0:        virt-firmware-%{pypi_version}.tar.gz
+Source0:        virt_firmware-%{pypi_version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -54,7 +54,7 @@ kernel-install plugin and systemd unit to manage automatic
 UKI (unified kernel image) updates.
 
 %prep
-%autosetup -n virt-firmware-%{pypi_version}
+%autosetup -n virt_firmware-%{pypi_version}
 
 %build
 %py3_build
@@ -112,6 +112,12 @@ install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_libdir}/kernel/i
 %{_libdir}/kernel/install.d/99-uki-uefi-setup.install
 
 %changelog
+* Thu Jul 11 2024 Gerd Hoffmann <kraxel@redhat.com> - 24.7-1
+- update to version 24.7
+
+* Mon Apr 15 2024 Gerd Hoffmann <kraxel@redhat.com> - 24.4-1
+- update to version 24.4
+
 * Fri Feb 16 2024 Gerd Hoffmann <kraxel@redhat.com> - 24.2-1
 - update to version 24.2
 
