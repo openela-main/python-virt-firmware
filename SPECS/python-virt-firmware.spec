@@ -1,4 +1,4 @@
-%global pypi_version 24.7
+%global pypi_version 24.11
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
@@ -112,6 +112,10 @@ install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_libdir}/kernel/i
 %{_libdir}/kernel/install.d/99-uki-uefi-setup.install
 
 %changelog
+* Fri Nov 29 2024 Gerd Hoffmann <kraxel@redhat.com> - 24.11-1
+- update to version 24.11
+- Resolves: RHEL-69507
+
 * Thu Jul 11 2024 Gerd Hoffmann <kraxel@redhat.com> - 24.7-1
 - update to version 24.7
 
