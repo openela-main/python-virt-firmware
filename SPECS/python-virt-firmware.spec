@@ -2,12 +2,13 @@
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
-Release:        1%{?dist}
+Release:        1%{?dist}.1
 Summary:        Tools for virtual machine firmware volumes
 
 License:        GPLv2
 URL:            https://pypi.org/project/virt-firmware/
 Source0:        virt_firmware-%{pypi_version}.tar.gz
+Patch1:         0001-systemd-skip-boot-efi-in-case-BOOT_ROOT-looks-like-t.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -54,7 +55,7 @@ kernel-install plugin and systemd unit to manage automatic
 UKI (unified kernel image) updates.
 
 %prep
-%autosetup -n virt_firmware-%{pypi_version}
+%autosetup -n virt_firmware-%{pypi_version} -p1
 
 %build
 %py3_build
@@ -69,9 +70,9 @@ mkdir -p %{buildroot}%{_datadir}/%{name}
 cp -ar tests %{buildroot}%{_datadir}/%{name}
 # uki-direct
 install -m 755 -d  %{buildroot}%{_unitdir}
-install -m 755 -d  %{buildroot}%{_libdir}/kernel/install.d
+install -m 755 -d  %{buildroot}%{_prefix}/lib/kernel/install.d
 install -m 644 systemd/kernel-bootcfg-boot-successful.service %{buildroot}%{_unitdir}
-install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_libdir}/kernel/install.d
+install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_prefix}/lib/kernel/install.d
 
 %post -n uki-direct
 %systemd_post kernel-bootcfg-boot-successful.service
@@ -109,9 +110,13 @@ install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_libdir}/kernel/i
 
 %files -n uki-direct
 %{_unitdir}/kernel-bootcfg-boot-successful.service
-%{_libdir}/kernel/install.d/99-uki-uefi-setup.install
+%{_prefix}/lib/kernel/install.d/99-uki-uefi-setup.install
 
 %changelog
+* Wed Mar 26 2025 Gerd Hoffmann <kraxel@redhat.com> - 24.11-2
+- backport bootctl fix for 99-uki-uefi-setup.install
+- Resolves: RHEL-84983
+
 * Fri Nov 29 2024 Gerd Hoffmann <kraxel@redhat.com> - 24.11-1
 - update to version 24.11
 - Resolves: RHEL-69507
