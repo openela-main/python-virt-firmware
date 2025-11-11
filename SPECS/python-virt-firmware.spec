@@ -1,14 +1,13 @@
-%global pypi_version 24.11
+%global pypi_version 25.7.3
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
-Release:        1%{?dist}.1
+Release:        1%{?dist}
 Summary:        Tools for virtual machine firmware volumes
 
 License:        GPLv2
 URL:            https://pypi.org/project/virt-firmware/
 Source0:        virt_firmware-%{pypi_version}.tar.gz
-Patch1:         0001-systemd-skip-boot-efi-in-case-BOOT_ROOT-looks-like-t.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -115,7 +114,7 @@ install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_prefix}/lib/kern
 %changelog
 * Wed Mar 26 2025 Gerd Hoffmann <kraxel@redhat.com> - 24.11-2
 - backport bootctl fix for 99-uki-uefi-setup.install
-- Resolves: RHEL-84983
+- Resolves: RHEL-84984
 
 * Fri Nov 29 2024 Gerd Hoffmann <kraxel@redhat.com> - 24.11-1
 - update to version 24.11
